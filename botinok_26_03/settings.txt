@@ -1,4 +1,0 @@
-BOT_API: 6035234083:AAFg2O4tkqhpmtztfnm_3HQUxen_3Fcax1o
-ChatGPT_API: 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
-Channel_1: botinok_test
-Channel_2: botinok_test3
