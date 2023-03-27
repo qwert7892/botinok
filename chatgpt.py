@@ -1,6 +1,13 @@
 import openai
 
-openai.api_key = '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'
+
+def get_ChatGPT_API():
+    sf = open('settings.txt', 'r')
+    setfile = sf.readlines()
+    return setfile[1].split()[1]
+
+
+openai.api_key = get_ChatGPT_API()
 
 
 def chat_ai(mes):

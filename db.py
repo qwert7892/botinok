@@ -71,7 +71,10 @@ def get_status(id):
     file = db.readlines()
     for i in file:
         if i.split()[0] == id:
-            return i.split()[2]
+            if i.split()[2] == 'no':
+                return False
+            else:
+                return True
 
 
 def get_status_2(id):
@@ -79,7 +82,10 @@ def get_status_2(id):
     file = db.readlines()
     for i in file:
         if i.split()[0] == id:
-            return i.split()[3]
+            if i.split()[3] == 'no':
+                return False
+            else:
+                return True
 
 
 def add_user(id, count=0, status='no', status_2='no'):
@@ -91,3 +97,4 @@ def add_user(id, count=0, status='no', status_2='no'):
     db.write(f'\n{id} {count} {status} {status_2}')
     db.close()
     return True
+
