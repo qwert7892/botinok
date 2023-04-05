@@ -1,0 +1,3 @@
+BOT_API: 6035234083:AAFg2O4tkqhpmtztfnm_3HQUxen_3Fcax1o
+ChatGPT_API: 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
+AdminPassword: 123
