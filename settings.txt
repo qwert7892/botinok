@@ -1,3 +1,5 @@
-BOT_API: 6035234083:AAFg2O4tkqhpmtztfnm_3HQUxen_3Fcax1o
+BOT_API: 6109892404:AAGJ8-9YtSwuC1jt6zQkbTBMe0I6MY4PXgs
 ChatGPT_API: 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
-AdminPassword: 123
+AdminPassword: umXDvyr1rq
+Channel_1: @procard_service
+Channel_2: @soft_turbo
