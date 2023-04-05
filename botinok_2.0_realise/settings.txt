@@ -1,3 +1,0 @@
-BOT_API:
-ChatGPT_API:
-AdminPassword: 123
