@@ -1,2 +1,0 @@
-zerouser 0 no no
-2045618785 3 yes no
