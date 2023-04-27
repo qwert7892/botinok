@@ -83,21 +83,27 @@ async def send_welcome(message: types.Message):
 async def got_sub(message: types.Message):
     change_status(str(message.chat.id), 'no')
     if get_count(str(message.chat.id)) == '1':
-        if check_sub_channel(await bot.get_chat_member(chat_id=f'@{get_channel(1)}', user_id=message.from_user.id)):
-            if check_sub_channel(await bot.get_chat_member(chat_id=f'@{get_channel(2)}', user_id=message.from_user.id)):
-                change_status(str(message.chat.id))
-                await bot.send_chat_action(chat_id=message.chat.id, action=ChatActions.TYPING)
-                await asyncio.sleep(2)
-                await bot.send_message(chat_id=message.chat.id,
+        try:
+            if check_sub_channel(await bot.get_chat_member(chat_id=f'@{get_channel(1)}', user_id=message.from_user.id)):
+                try:
+                    if check_sub_channel(await bot.get_chat_member(chat_id=f'@{get_channel(2)}', user_id=message.from_user.id)):
+                        change_status(str(message.chat.id))
+                        await bot.send_chat_action(chat_id=message.chat.id, action=ChatActions.TYPING)
+                        await asyncio.sleep(2)
+                        await bot.send_message(chat_id=message.chat.id,
                                        text='Спасибо, теперь можете продолжить пользоваться ChatGPT')
+                    else:
+                        await bot.send_chat_action(chat_id=message.chat.id, action=ChatActions.TYPING)
+                        await asyncio.sleep(2)
+                        await bot.send_message(chat_id=message.chat.id, text='Ты подписался не на все каналы')
+                except Exception:
+                    pass
             else:
                 await bot.send_chat_action(chat_id=message.chat.id, action=ChatActions.TYPING)
                 await asyncio.sleep(2)
-                await bot.send_message(chat_id=message.chat.id, text='Ты подписался не на все каналы')
-        else:
-            await bot.send_chat_action(chat_id=message.chat.id, action=ChatActions.TYPING)
-            await asyncio.sleep(2)
-            await bot.send_message(chat_id=message.chat.id, text='Ты не подписался на каналы')
+                await bot.send_message(chat_id=message.chat.id, text='Ты не подписался на каналы')
+        except Exception:
+            change_status(str(message.chat.id))
 
     else:
         ind = int(get_count(str(message.chat.id))) // 5
@@ -128,7 +134,7 @@ async def got_sub(message: types.Message):
                 await asyncio.sleep(2)
                 await bot.send_message(chat_id=message.chat.id, text='Ты не подписался на каналы')
         except Exception:
-            pass
+            change_status(str(message.chat.id))
 
 
 @dp.message_handler()
@@ -143,7 +149,6 @@ async def start_chat(message: types.Message):
                 await bot.send_chat_action(chat_id=message.chat.id, action=ChatActions.TYPING)
                 await asyncio.sleep(2)
                 await bot.send_message(chat_id=message.chat.id, text=a)
-                change_status(str(message.chat.id), 'no')
                 try:
                     ch1 = get_channel(1)
                     channels = []
@@ -159,6 +164,7 @@ async def start_chat(message: types.Message):
                     MSG_NOT_FOLLOW = f'Чтобы продолжить использовать ChatGPT подпишись на эти каналы:' + mes
                     await bot.send_message(chat_id=message.chat.id, text=MSG_NOT_FOLLOW,
                                            reply_markup=nav.bot_sub_checker)
+                    change_status(str(message.chat.id), 'no')
                 except Exception:
                     change_status(str(message.chat.id), 'yes')
 
@@ -167,7 +173,6 @@ async def start_chat(message: types.Message):
                 await bot.send_chat_action(chat_id=message.chat.id, action=ChatActions.TYPING)
                 await asyncio.sleep(2)
                 await bot.send_message(chat_id=message.chat.id, text=a)
-                change_status(str(message.chat.id), 'no')
                 try:
                     ind = int(get_count(str(message.chat.id))) // 5
                     ch1 = get_channel(ind + 2 + ind - 1)
@@ -184,6 +189,7 @@ async def start_chat(message: types.Message):
                     MSG_NOT_FOLLOW = f'Чтобы продолжить использовать ChatGPT подпишись на эти каналы:' + mes
                     await bot.send_message(chat_id=message.chat.id, text=MSG_NOT_FOLLOW,
                                            reply_markup=nav.bot_sub_checker)
+                    change_status(str(message.chat.id), 'no')
                 except Exception:
                     change_status(str(message.chat.id), 'yes')
 
